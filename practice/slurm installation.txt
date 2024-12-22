@@ -1,0 +1,108 @@
+slurm installation
+---------------------------------------------------------------------
+1. wget https://download.schedmd.com/slurm/slurm-21.08.8.tar.bz2
+2. sudo chmod 700 /home/usercontroller/
+3. sudo chown usercontroller:usercontroller /home/usercontroller/
+4. sudo apt-get install -y build-essential munge libmunge-dev libmunge2 libmysqlclient-dev libssl-dev libpam0g-dev libnuma-dev perl
+5. tar -xvjf slurm-21.08.8.tar.bz2  slurm-21.08.8/
+6. cd slurm-21.08.8/
+7. ./configure --prefix=/home/usercontroller/slurm-21.08.8/
+8. make
+9. make install
+10. sudo nano /etc/hosts        # edit it from screenshot
+11. sudo create-munge-key 
+12. sudo chown munge:munge /etc/munge/munge.key
+13. sudo chmod 400 /etc/munge/munge.key
+14. sudo apt-get install openssh-server
+15. sudo service ssh restart
+16. sudo service ssh status
+17. sudo scp -r /etc/munge/munge.key usercontroller@compute:/tmp/
+18. sudo chown -R munge: /etc/munge/ /var/log/munge/
+19. sudo chmod 0700 /etc/munge/ /var/log/munge/
+20. sudo systemctl enable munge
+21. sudo systemctl start munge
+22. sudo systemctl status munge
+23. sudo mkdir /etc/slurm/
+24. sudo mkdir /etc/slurm-llnl/
+25. cp etc/slurm.conf.example etc/slurm.conf
+26. sudo nano etc/slurm.conf      -------# edit it from screenshot
+27. sudo cp etc/slurm.conf /etc/slurm/
+28. sudo cp etc/slurm.conf /etc/slurm-llnl/
+29. sudo scp  etc/slurm.conf usercontroller@compute:/tmp/
+30. sudo cp etc/slurmctld.service /etc/systemd/system/
+31. sudo cp etc/slurmd.service /etc/systemd/system/
+32. sudo cp etc/slurmdbd.service /etc/systemd/system/
+33. sudo apt-get install mariadb-server
+34. sudo apt-get install mailutils
+35. whereis mail
+36. sudo MySQL
+37. cp etc/cgroup.conf.example etc/cgroup.conf
+40. nano etc/cgroup.conf      ------edit it from screenshot
+41. cp etc/slurmdbd.conf.example etc/slurmdbd.conf
+42. nano etc/slurmdbd.conf   -----edit it from screenshot
+43. sudo mkdir /var/spool/
+44. sudo service slurmctld restart
+45. sudo service slurmctld status
+46. /home/usercontroller/slurm-21.08.8/sbin/slurmctld -D
+47. sudo mkdir /var/spool/slurmctld/
+48. /home/usercontroller/slurm-21.08.8/sbin/slurmctld -D
+49. sudo chown usercontroller:usercontroller /var/spool/slurmctld/ 
+50. sudo chmod 755 /var/spool/slurmctld/ 
+51. /home/usercontroller/slurm-21.08.8/sbin/slurmctld -D
+52. cat /etc/hosts
+53. cd /etc/mysql/mariadb.conf.d/
+54. sudo nano 50-server.cnf   -------edit it from screenshot
+55. sudo service mysql restart
+56. sudo service mysql status
+57. cd slurm-21.08.8/
+58. /home/usercontroller/slurm-21.08.8/sbin/slurmctld -D
+59. sudo service mysql status
+60. sudo mysql
+61. sudo service slurmdbd restart
+62. sudo service slurmdbd status
+63. sudo chmod 600 /home/usercontroller//slurm-21.08.8/etc/slurmdbd.conf
+64. sudo service slurmdbd restart
+65. sudo service slurmdbd status
+66. sudo service slurmd restart
+67. sudo service slurmd status
+68. sudo service slurmctld restart
+69. sudo service slurmctld status
+70. sinfo
+71. export PATH="/home/usercontroller/slurm-21.08.8/bin/:$PATH"
+72. export PATH="/home/usercontroller/slurm-21.08.8/sbin/:$PATH"
+73. export LD_LIBRARY_PATH="/home/usercontroller/slurm-21.08.8/lib/:$LD_LIBRARY_PATH"
+74. sinfo
+75. nano etc/slurmdbd.conf
+
+-------------------------------------
+1. sinfo
+2. sudo service slumctld restart
+3. sudo service slurmctld restart
+4. sinfo
+5. scontrol update NodeName=controller,compute state=idle
+6. sudo service slurmctld status
+7. sudo scp -r /etc/munge/munge.key usercontroller@compute:/tmp
+8. sudo scp -r /etc/munge/munge.key usercontroller@compute:/tmp
+9. sudo service slurmctld restart
+10. sudo service slurmctld status
+11. sudo create-munge-key 
+12. sudo scp  /etc/munge/munge.key usercontroller@compute:/tmp
+13. service slurmctld restart
+14. sudo service slurmctld restart
+15. sudo service slurmctld status
+16. sudo service slurmdbd restart
+17. sudo service slurmdbd status
+18. sudo service slurmctld status
+19. /home/usercontroller/slurm-21.08.8/sbin/slurmctld -D
+20. /home/usercontroller/slurm-21.08.8/sbin/slurmctld -D
+21. sudo scp -r /etc/munge/munge.key usercontroller@compute:/tmp
+22. sudo scp -r /etc/munge/munge.key usercontroller@compute:/tmp
+23. sudo service munge restart
+24. sudo service munge status
+25. /home/usercontroller/slurm-21.08.8/sbin/slurmctld -D
+26. cat > control.txt
+27. history > control.txt
+28. scp -r control.txt dhpcsa@192.168.82.18:/tmp/
+
+
+ 
